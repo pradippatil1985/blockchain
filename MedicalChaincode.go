@@ -23,7 +23,7 @@ type MedicalData struct{
 
 }
 
-func (t *MedicalChaincode) Init(stub shim.ChaincodeStubInterface) ([]byte, error) {
+func (t *MedicalChaincode) Init(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	var err error
 	// Initialize the chaincode
 
@@ -41,7 +41,7 @@ func (t *MedicalChaincode) Init(stub shim.ChaincodeStubInterface) ([]byte, error
 }
 
 // Add Patient data
-func (t *MedicalChaincode) Invoke(stub shim.ChaincodeStubInterface) ([]byte, error) {
+func (t *MedicalChaincode) Invoke(stub shim.ChaincodeStubInterface, function string, args []string) ([]byte, error) {
 	if function == medicalIndexTxStr {
 		return t.AddPatientInfo(stub, args)
 	}
