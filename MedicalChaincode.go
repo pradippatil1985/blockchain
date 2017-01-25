@@ -133,6 +133,9 @@ func (t *MedicalChaincode)  GetPatientDetails(stub shim.ChaincodeStubInterface, 
 	// iterate
 	for i := 0; i < length; i++ {
 		obj := PatientTxObjects[i]
+		
+		fmt.Printf("Query Response:%s\n", obj.PATIENT_ID)
+		
 		if PATIENT_ID == obj.PATIENT_ID {
 			PatientTxObjects1 = append(PatientTxObjects1,obj)
 			//requiredObj = obj
