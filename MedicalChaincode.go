@@ -65,6 +65,8 @@ func (t *MedicalChaincode) AddPatientInfo(stub shim.ChaincodeStubInterface, args
 	MedicalDataObj.EXPIRY_DATE = args[3]
 
         fmt.Printf("Input from Hospital:%s\n", MedicalDataObj)
+	
+	myLogger.Debugf("Input from Hospital:%v\n", MedicalDataObj) 
 
 	medicalTxsAsBytes, err := stub.GetState(medicalIndexTxStr)
 	if err != nil {
@@ -99,6 +101,7 @@ func (t *MedicalChaincode) Query(stub shim.ChaincodeStubInterface,function strin
 	resAsBytes, err = t.GetPatientDetails(stub, PATIENT_ID)
 
 	fmt.Printf("Query Response:%s\n", resAsBytes)
+	myLogger.Debugf("Query Response:%v\n", resAsBytes) 
 
 	if err != nil {
 		return nil, err
@@ -120,7 +123,8 @@ func (t *MedicalChaincode)  GetPatientDetails(stub shim.ChaincodeStubInterface, 
 	json.Unmarshal(PatientTxsAsBytes, &PatientTxObjects)
 	length := len(PatientTxObjects)
 	fmt.Printf("Output from chaincode: %s\n", PatientTxsAsBytes)
-
+	myLogger.Debugf("Output from chaincode: %v\n", PatientTxsAsBytes) 
+	
 	if PATIENT_ID == "" {
 		res, err := json.Marshal(PatientTxObjects)
 		if err != nil {
@@ -135,6 +139,7 @@ func (t *MedicalChaincode)  GetPatientDetails(stub shim.ChaincodeStubInterface, 
 		obj := PatientTxObjects[i]
 		
 		fmt.Printf("Query Response:%s\n", obj.PATIENT_ID)
+		myLogger.Debugf("Query Response:%s\n", obj.PATIENT_ID) 
 		
 		if PATIENT_ID == obj.PATIENT_ID {
 			PatientTxObjects1 = append(PatientTxObjects1,obj)
